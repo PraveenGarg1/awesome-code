@@ -1,0 +1,14 @@
+  
+## port on which dns server listen DNS query
+port: 5055
+
+## host-ip mapping for Ipv4 addresses
+v4:
+  example.com: 10.123.10.1,10.123.10.4,10.10.1.2
+  auth.com: 10.123.10.2,10.123.10.5
+  test.com: 10.10.1.1
+
+## host-ip mapping for Ipv6 addresses
+v6:
+  example.com: 2001:1234:a23b:ffff:21ac:1256:ced1:1123,2001::2222
+  auth.com: 2001::1111
