@@ -113,7 +113,7 @@ if __name__ == '__main__':
                 print 'Resolving host : %s -> %s' % (p.domain, str(ips_list))
 
     except KeyboardInterrupt:
-        print '\n^C received, shutting down the web server'
+        print '\n^C Received, Shutting down the web server'
         udps.close()
         sys.exit(0)
 
