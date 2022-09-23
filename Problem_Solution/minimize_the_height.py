@@ -1,4 +1,5 @@
 class Solution:
+
     @classmethod
     def get_min_diff(self, arr, n, k):
         arr.sort()
