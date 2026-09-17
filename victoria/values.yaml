@@ -106,3 +106,8 @@ podAnnotations: {}
 podLabels: {}
 annotations: {}
 extraLabels: {}
+
+
+# commands
+# helm upgrade --install vm victoria-metrics-single-0.43.0.tgz -f values.yaml
+# helm upgrade --install vmauth victoria-metrics-auth-0.38.0.tgz -f values.yaml
