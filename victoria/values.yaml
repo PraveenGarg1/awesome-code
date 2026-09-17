@@ -1,0 +1,108 @@
+# Working baseline values for victoria-metrics-auth chart
+# Safe defaults: optional routing/ingress integrations are disabled.
+
+global:
+  imagePullSecrets: []
+
+replicaCount: 1
+
+image:
+  repository: victoriametrics/vmauth
+  pullPolicy: IfNotPresent
+  # Set a fixed tag for deterministic deployments if needed, e.g. "v1.111.0"
+  tag: ""
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Main service
+service:
+  enabled: true
+  type: ClusterIP
+  servicePort: 8427
+  annotations: {}
+  extraLabels: {}
+
+# Disable optional resources unless your cluster is configured for them
+route:
+  enabled: false
+
+ingress:
+  enabled: false
+
+ingressInternal:
+  enabled: false
+
+# Keep resources modest; tune based on your workload
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Keep deployment mode unless you explicitly need daemonSet
+mode: deployment
+
+deployment:
+  spec:
+    strategy:
+      type: RollingUpdate
+
+# ServiceMonitor requires Prometheus Operator CRDs; off by default
+serviceMonitor:
+  enabled: false
+
+# Leave empty to generate config from .Values.config
+secretName: ""
+
+# Minimal, valid vmauth config
+# Replace backend URL/credentials for your environment.
+config:
+  users:
+    - username: "metrics-reader"
+      password: "change-me"
+      url_prefix: "http://vm-victoria-metrics-single-server.praveen.svc.cluster.local:8428"
+
+# If set, this raw content overrides .Values.config
+configRaw: ""
+
+probe:
+  readiness:
+    tcpSocket: {}
+    initialDelaySeconds: 5
+    periodSeconds: 15
+  liveness:
+    tcpSocket: {}
+    initialDelaySeconds: 5
+    periodSeconds: 15
+    timeoutSeconds: 5
+  startup: {}
+
+# Optional extras
+extraArgs:
+  envflag.enable: true
+  envflag.prefix: VM_
+  loggerFormat: json
+
+env: []
+envFrom: []
+extraVolumes: []
+extraVolumeMounts: []
+extraContainers: []
+initContainers: []
+
+podAnnotations: {}
+podLabels: {}
+annotations: {}
+extraLabels: {}
